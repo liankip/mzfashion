@@ -4,8 +4,7 @@ import React, {useEffect} from "react";
 import {Alert, FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TouchableOpacity, View} from "react-native";
 import {Text} from "react-native-paper";
 import formatPriceToIDR from "@/app/components/formatPriceToIDR";
-import {doc, updateDoc} from "@firebase/firestore";
-import {FIRESTORE_DB} from "@/FirebaseConfig";
+import firebase from 'firebase/compat';
 
 const DetailTransaction = ({route, navigation}: DetailTransactionPageProps) => {
     const {id, nomor, status} = route.params;
@@ -17,22 +16,18 @@ const DetailTransaction = ({route, navigation}: DetailTransactionPageProps) => {
 
     const transactionDetail = transaction[0];
 
-    const ref = doc(FIRESTORE_DB, `transactions/${id}`);
-
-    const toggleDone = async () => {
-        const newStatus = status === 'pending' ? 'lunas' : 'pending';
-        await updateDoc(ref, {status: newStatus}).then(() => {
-            navigation.navigate('Admin');
-        });
-    }
+    const formatTimestamp = (timestamp: firebase.firestore.FieldValue) => {
+        return timestamp ? timestamp.toDate().toLocaleString() : '';
+    };
 
     return (
         <View style={styles.container}>
             {transactionDetail ? (
-
                 <KeyboardAvoidingView style={{flex: 1}} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                                       keyboardVerticalOffset={65}>
-                    <Text variant="headlineSmall">Nomor Transaksi: {transactionDetail.nomor}</Text>
+                    <Text variant="headlineSmall" style={{color: 'black', fontWeight: 'bold'}}>Nomor
+                        Transaksi: {transactionDetail.nomor}</Text>
+                    <Text variant="bodyLarge" style={{color: 'black', fontWeight: 'bold'}}>{formatTimestamp(transactionDetail.timestamp)}</Text>
                     <FlatList
                         style={{paddingTop: 20}}
                         data={transactionDetail.produk}
@@ -51,7 +46,7 @@ const DetailTransaction = ({route, navigation}: DetailTransactionPageProps) => {
                             </View>
                         )}
                     />
-                    <Text variant="titleMedium">
+                    <Text variant="titleMedium" style={{color: 'black', fontWeight: 'bold', fontSize: 20}}>
                         Alamat Pengiriman
                     </Text>
                     <Text style={styles.totalText}>
@@ -61,12 +56,6 @@ const DetailTransaction = ({route, navigation}: DetailTransactionPageProps) => {
                         <Text style={styles.totalText}>Total: {formatPriceToIDR(transactionDetail.total)}</Text>
                         <Text style={styles.statusText}>{transactionDetail.status}</Text>
                     </View>
-                    <TouchableOpacity
-                        style={styles.submitButton}
-                        onPress={toggleDone}>
-                        <Text
-                            style={styles.submitButtonText}>{transactionDetail.status == 'lunas' ? 'Lunas' : 'Pending'}</Text>
-                    </TouchableOpacity>
 
                 </KeyboardAvoidingView>
             ) : (
@@ -98,6 +87,7 @@ const styles = StyleSheet.create({
     cartItemName: {
         fontSize: 16,
         fontWeight: 'bold',
+        color: 'black',
     },
     cartItemImage: {
         width: 50,
@@ -132,6 +122,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         backgroundColor: '#f2f2f2',
+        color:'black'
     },
     totalText: {
         flex: 1,
@@ -140,6 +131,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         backgroundColor: '#f2f2f2',
+        color: 'black'
     },
     submitButton: {
         backgroundColor: '#000',

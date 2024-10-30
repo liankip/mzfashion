@@ -18,7 +18,7 @@ const Login = ({navigation}: LoginPageProps) => {
                 if (user.user.email === 'admin@mzfashion.com') {
                     navigation.navigate('Admin');
                 } else {
-                    navigation.navigate('Products');
+                    navigation.navigate('Home');
                 }
             }).catch((error) => {
                 Alert.alert('Login gagal', error.message);
@@ -31,11 +31,11 @@ const Login = ({navigation}: LoginPageProps) => {
 
     return (
         <View style={styles.container}>
-            <TextInput value={email} style={styles.input} placeholder="Email" autoCapitalize="none"
+            <TextInput textColor="black" value={email} style={styles.input} placeholder="Email" autoCapitalize="none"
                        onChangeText={(text) => setEmail(text)}
                        keyboardType="email-address"
                        left={<TextInput.Icon icon="email"/>}/>
-            <TextInput value={password} style={styles.input} placeholder="Password" autoCapitalize="none"
+            <TextInput textColor="black" value={password} style={styles.input} placeholder="Password" autoCapitalize="none"
                        secureTextEntry
                        onChangeText={(text) => setPassword(text)}
                        left={<TextInput.Icon icon="key"/>}/>

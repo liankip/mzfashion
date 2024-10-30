@@ -1,7 +1,8 @@
-import {collection, query, onSnapshot, where, doc, limit} from "@firebase/firestore";
+import {collection, query, onSnapshot, where, doc, limit, updateDoc} from "@firebase/firestore";
 import {FIRESTORE_DB} from "@/FirebaseConfig";
 import {useEffect, useState} from "react";
 import firebase from "firebase/compat";
+import firestore = firebase.firestore;
 
 export interface Product {
     id: string;
@@ -38,11 +39,12 @@ export interface Transaction {
     total: number;
 }
 
-export interface ReviewType {
-    id: string;
+export interface Review {
+    id: number;
+    product_id: string;
     username: string;
+    comment: string;
     rating: number;
-    komentar: string;
 }
 
 export interface Order {
@@ -56,6 +58,7 @@ export const useProducts = (): {
     product: Product[];
     fetchProductsByCategory: (category: string) => void;
     fetchProductDetail: (id: string) => void;
+    editProduct: (id: string, updatedData: Partial<Product>) => Promise<void>;
 } => {
     const [product, setProducts] = useState<Product[]>([]);
 
@@ -139,21 +142,33 @@ export const useProducts = (): {
                 }
             }
         });
-    }
+    };
+
+    const editProduct = async (id: string, updatedData: Partial<Product>) => {
+        try {
+            const productDocRef = doc(FIRESTORE_DB, 'products', id);
+            await updateDoc(productDocRef, updatedData);
+            console.log(`Product with ID ${id} updated successfully.`);
+        } catch (error) {
+            console.error("Error updating product:", error);
+            throw error;
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = fetchProduct();
         return () => unsubscribe();
     }, []);
 
-    return {product, fetchProductDetail, fetchProductsByCategory};
-}
+    return { product, fetchProductDetail, fetchProductsByCategory, editProduct };
+};
 
 export const useTransaction = (): {
     transaction: Transaction[];
     fetchTransaction: () => void;
     fetchTransactionByEmail: (email: string | null | undefined) => void;
     fetchTransactionDetail: (id: string) => void;
+    updateTransactionStatus: (id: string, newStatus: string) => void;
 } => {
     const [transaction, setTransaction] = useState<Transaction[]>([]);
 
@@ -226,12 +241,28 @@ export const useTransaction = (): {
         })
     }
 
+    const updateTransactionStatus = async (id: string, newStatus: string) => {
+        try {
+            const ref = doc(FIRESTORE_DB, `transactions/${id}`);
+            await updateDoc(ref, {
+                status: newStatus,
+            });
+            setTransaction(prevTransactions =>
+                prevTransactions.map(transaction =>
+                    transaction.id === id ? {...transaction, status: newStatus} : transaction
+                )
+            );
+        } catch (error) {
+            console.error("Error updating transaction status: ", error);
+        }
+    }
+
     useEffect(() => {
         const unsubscribe = fetchTransaction();
         return () => unsubscribe();
     }, []);
 
-    return {transaction, fetchTransaction, fetchTransactionByEmail, fetchTransactionDetail};
+    return {transaction, fetchTransaction, fetchTransactionByEmail, fetchTransactionDetail, updateTransactionStatus};
 }
 
 export const useCategory = (): {

@@ -2,6 +2,7 @@ import {FlatList, Image, StyleSheet, Text, TextBase, TouchableOpacity, View} fro
 import React, {useEffect} from "react";
 import {Product, useProducts} from "@/app/api/api";
 import {BajuPageProps} from "@/app/navigation/ProductsStackNav";
+import formatPriceToIDR from "@/app/components/formatPriceToIDR";
 
 const Baju = ({navigation}: BajuPageProps) => {
     const { product, fetchProductsByCategory } = useProducts();
@@ -17,7 +18,7 @@ const Baju = ({navigation}: BajuPageProps) => {
         >
             <Image style={styles.productImage} source={{uri: item.gambar}}/>
             <Text style={styles.productName}>{item.nama}</Text>
-            <Text style={styles.productPrice}>${item.harga}</Text>
+            <Text style={styles.productPrice}>{formatPriceToIDR(item.harga)}</Text>
         </TouchableOpacity>
     );
 

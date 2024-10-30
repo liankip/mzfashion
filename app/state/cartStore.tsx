@@ -31,6 +31,7 @@ const useCartStore = create<CartState>((set) => ({
                     products: [...state.products, {...product, quantity: 1}],
                 };
             }
+
         }),
 
     reduceProduct: (product: Product) =>

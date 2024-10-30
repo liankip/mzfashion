@@ -1,6 +1,6 @@
 import {NativeStackScreenProps, createNativeStackNavigator} from '@react-navigation/native-stack';
 import ProductDetails from '../screens/ProductDetails';
-import Products from '../screens/Products';
+import Home from '../screens/Home';
 import {NavigationProp} from '@react-navigation/native';
 import CartModal from '../screens/CartModal';
 import CartModalNav from "@/app/navigation/CartModalNav";
@@ -21,6 +21,7 @@ import Payment from "@/app/screens/Payment";
 import History from "@/app/screens/History";
 import HistoryDetails from "@/app/screens/HistoryDetails";
 import DetailTransaction from "@/app/screens/admin/DetailTransaction";
+import EditProduct from "@/app/screens/admin/EditProduct";
 
 type ProductsStackParamList = {
     Admin: undefined;
@@ -47,7 +48,7 @@ type ProductsStackParamList = {
         total: number;
     };
     ProductDetails: { id: string; name: string };
-    Products: undefined;
+    Home: undefined;
     Register: undefined;
     Sidebar: undefined;
     History: undefined;
@@ -61,6 +62,7 @@ type AdminStackParamList = {
     ListProduct: undefined;
     DetailProduct: { id: string; name: string };
     CreateProduct: undefined;
+    EditProduct: { id: string; name: string };
     Logout: undefined;
 }
 
@@ -69,7 +71,7 @@ const Drawer = createDrawerNavigator<ProductsStackParamList>();
 const AdminStack = createNativeStackNavigator<AdminStackParamList>();
 const DrawerAdmin = createDrawerNavigator<AdminStackParamList>();
 
-export type ProductsPageProps = NativeStackScreenProps<ProductsStackParamList, 'Products'>;
+export type ProductsPageProps = NativeStackScreenProps<ProductsStackParamList, 'Home'>;
 export type LoginPageProps = NativeStackScreenProps<ProductsStackParamList, 'Login'>;
 export type LogoutPageProps = NativeStackScreenProps<ProductsStackParamList, 'Logout'>;
 export type ProductDetailsPageProps = NativeStackScreenProps<ProductsStackParamList, 'ProductDetails'>;
@@ -86,13 +88,14 @@ export type DetailTransactionPageProps = NativeStackScreenProps<AdminStackParamL
 export type ListProductPageProps = NativeStackScreenProps<AdminStackParamList, 'ListProduct'>;
 export type CreateProductPageProps = NativeStackScreenProps<AdminStackParamList, 'CreateProduct'>;
 export type DetailProductPageProps = NativeStackScreenProps<AdminStackParamList, 'DetailProduct'>;
+export type EditProductPageProps = NativeStackScreenProps<AdminStackParamList, 'EditProduct'>;
 
 export type StackNavigation = NavigationProp<ProductsStackParamList>;
 
 function Sidebar() {
     return (
         <Drawer.Navigator>
-            <Drawer.Screen name="Products" component={Products}
+            <Drawer.Screen name="Home" component={Home}
                            options={{
                                headerRight: () => <CartModalNav/>,
                                title: 'Beranda',
@@ -145,11 +148,12 @@ const ProductsStackNav = () => {
                             <AdminStack.Screen name="DetailTransaction" component={DetailTransaction} options={{
                                 title: 'Detail Transaksi'
                             }}/>
+                            <AdminStack.Screen name="EditProduct" component={EditProduct}/>
                         </>
                     ) : (
                         <>
                             <ProductsStack.Screen name="Sidebar" component={Sidebar} options={{headerShown: false}}/>
-                            <ProductsStack.Screen name="Products" component={Products} options={{
+                            <ProductsStack.Screen name="Home" component={Home} options={{
                                 title: 'Beranda',
                             }}/>
                             <ProductsStack.Screen name="ProductDetails" component={ProductDetails}

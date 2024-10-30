@@ -2,10 +2,11 @@ import {ActivityIndicator, StyleSheet, View} from "react-native";
 import {Text, TextInput, Button} from "react-native-paper";
 import React from "react";
 import {FIREBASE_AUTH} from "@/FirebaseConfig";
-import {createUserWithEmailAndPassword} from "@firebase/auth";
+import {createUserWithEmailAndPassword, updateProfile} from "@firebase/auth";
 
 const Register = () => {
     const [email, setEmail] = React.useState('');
+    const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const auth = FIREBASE_AUTH;
@@ -13,7 +14,14 @@ const Register = () => {
     const signUp = async () => {
         setLoading(true);
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
+            await createUserWithEmailAndPassword(auth, email, password)
+            if (auth.currentUser) {
+                await updateProfile(auth.currentUser, {
+                    displayName: username,
+                });
+            } else {
+                console.error("No user is currently signed in.");
+            }
         } catch (e) {
             console.error(e);
         }
@@ -22,10 +30,14 @@ const Register = () => {
 
     return (
         <View style={styles.container}>
-            <TextInput value={email} style={styles.input} placeholder="Email" autoCapitalize="none"
+            <TextInput textColor="black" value={username} style={styles.input} placeholder="Username"
+                       autoCapitalize="none"
+                       onChangeText={(text) => setUsername(text)}
+                       left={<TextInput.Icon icon="tag"/>}/>
+            <TextInput textColor="black" value={email} style={styles.input} placeholder="Email" autoCapitalize="none"
                        onChangeText={(text) => setEmail(text)}
                        left={<TextInput.Icon icon="email"/>}/>
-            <TextInput value={password} style={styles.input} placeholder="Password" secureTextEntry
+            <TextInput textColor="black" value={password} style={styles.input} placeholder="Password" secureTextEntry
                        autoCapitalize="none"
                        onChangeText={(text) => setPassword(text)}
                        left={<TextInput.Icon icon="key"/>}/>
