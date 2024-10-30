@@ -5,24 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8afec284-98ab-4b86-9d75-2d8ef8fccb05" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/images/splash-background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/api.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/api.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/navigation/ProductsStackNav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/navigation/ProductsStackNav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/Baju.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/Baju.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/screens/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/screens/ProductDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/ProductDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/Products.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/Register.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/Register.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/Review.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/admin/Admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/admin/Admin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/admin/DetailProduct.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/admin/DetailTransaction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/admin/DetailTransaction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/screens/admin/Product.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/screens/admin/Product.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/state/cartStore.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/state/cartStore.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/splash.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +39,7 @@
     &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;js.last.introduce.type&quot;: &quot;VAR&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -142,6 +127,7 @@
       <workItem from="1727765397532" duration="294000" />
       <workItem from="1727765764373" duration="5932000" />
       <workItem from="1727945286482" duration="2539000" />
+      <workItem from="1730302504657" duration="456000" />
     </task>
     <servers />
   </component>

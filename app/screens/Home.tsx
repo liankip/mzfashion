@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 5,
+        color: 'black',
     },
     productPrice: {
         fontSize: 14,
@@ -207,6 +208,7 @@ const styles = StyleSheet.create({
         marginTop: 8,
         fontSize: 14,
         fontWeight: 'bold',
+        color: 'black',
     },
     flatListContainer: {
         paddingHorizontal: 5,

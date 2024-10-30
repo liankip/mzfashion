@@ -6,8 +6,8 @@ import {useProducts} from "@/app/api/api";
 import formatPriceToIDR from "@/app/components/formatPriceToIDR";
 import {Button, Text, Snackbar, Icon, TextInput} from 'react-native-paper';
 import firebase from 'firebase/compat';
-import { addDoc, collection, onSnapshot, orderBy, query, where } from 'firebase/firestore';
-import { FIRESTORE_DB } from '@/FirebaseConfig';
+import {addDoc, collection, onSnapshot, orderBy, query, where} from 'firebase/firestore';
+import {FIRESTORE_DB} from '@/FirebaseConfig';
 
 interface Review {
     id: string;
@@ -116,21 +116,21 @@ const ProductDetails = ({route}: ProductDetailsPageProps) => {
 
                 return onSnapshot(q, (snapshot) => {
 
-                snapshot.docs.forEach((doc) => {
-                    const data = doc.data();
-                    const review = {
-                        id: doc.id,
-                        reviewText: data.reviewText,
-                        reviewRating: data.reviewRating,
-                        timestamp: data.timestamp,
-                    };
-                    
-                    reviews.push(review);
+                    snapshot.docs.forEach((doc) => {
+                        const data = doc.data();
+                        const review = {
+                            id: doc.id,
+                            reviewText: data.reviewText,
+                            reviewRating: data.reviewRating,
+                            timestamp: data.timestamp,
+                        };
+
+                        reviews.push(review);
+                    });
+
+                    setReviews(reviews);
                 });
-    
-                setReviews(reviews);
-            });
-                }
+            }
         };
 
         fetchReviews();
@@ -176,7 +176,10 @@ const ProductDetails = ({route}: ProductDetailsPageProps) => {
                                             ]}
                                             onPress={() => handleSizeSelection(size)}
                                         >
-                                            <Text style={styles.sizeButtonText}>{size}</Text>
+                                            <Text style={[
+                                                styles.sizeButtonText,
+                                                selectedSize === size && styles.selectedSizeButton
+                                            ]}>{size}</Text>
                                         </TouchableOpacity>
                                     ))}
                                 </View>
@@ -199,12 +202,14 @@ const ProductDetails = ({route}: ProductDetailsPageProps) => {
                     <View style={styles.reviewContainer}>
                         <Text style={styles.reviewTitle}>Berikan Review Anda</Text>
                         <TextInput
+                            textColor={'black'}
                             style={styles.reviewInput}
                             placeholder="Tulis review di sini..."
                             value={reviewText}
                             onChangeText={setReviewText}
                         />
                         <TextInput
+                            textColor={'black'}
                             style={styles.reviewInput}
                             placeholder="Rating (1-5)"
                             value={reviewRating?.toString() || ''}
@@ -261,7 +266,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginBottom: 20,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 3,
@@ -311,7 +316,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 20,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.3,
         shadowRadius: 5,
         elevation: 5,
@@ -338,10 +343,14 @@ const styles = StyleSheet.create({
     },
     selectedSizeButton: {
         backgroundColor: '#007bff',
+        color: '#fff',
     },
     sizeButtonText: {
         color: '#007bff',
         fontSize: 16,
+    },
+    selectedButtonText: {
+        color: '#fff',
     },
     sizeInfoText: {
         fontSize: 14,
@@ -354,7 +363,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginTop: 20,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 3,
@@ -372,7 +381,8 @@ const styles = StyleSheet.create({
         padding: 10,
         marginBottom: 10,
         fontSize: 16,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        color: '#333',
     },
     cornerIcon: {
         marginLeft: 'auto',
@@ -383,7 +393,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderRadius: 10,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: {width: 0, height: 2},
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 3,
